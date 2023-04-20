@@ -18,6 +18,35 @@ namespace LinQ
                 Console.WriteLine(item);
             }
             */
+            List<string> miLista = new List<string>()
+        {
+            "Saludos a todos",
+            "los estudiantes de ISI",
+            "de la Univalle",
+            "Hoy vimos la pelicula."
+        };
+            //CONSULTA #1
+            var query1 = from cad in miLista
+                        where (cad.Contains(" la "))
+                        select cad;
+            //RESULTADO #1
+            Console.WriteLine("CONSULTA 1");
+            foreach (var item in query1)
+            {
+                Console.WriteLine(item);
+            }
+
+            //CONSULTA #2
+            List<string> query2 = (from cad in miLista select cad).ToList();
+
+            //RESULTADO #
+            Console.WriteLine("\nCONSULTA 2");
+            foreach (var item in query2)
+            {
+                Console.WriteLine(item);
+            }
+            Console.WriteLine("Reyes Ortiz Chacon Alejandro");
+
             Estudiante est = new Estudiante("Alejandro", "538764", "5to");
             Estudiante est2 = new Estudiante("Belen", "36646", "5to");
             Estudiante est3 = new Estudiante("Jose", "538764", "3ro");
@@ -36,8 +65,8 @@ namespace LinQ
             };
 
             var queryEstudiantes = from estudiante in vectorEstudiantes
-                                   where estudiante.Nombre.Length == 5
-                                   select estudiante.Nombre;
+                                    where estudiante.Nombre.Length == 5
+                                    select estudiante.Nombre;
 
             // Imprimir los datos de los estudiantes encontrados
             foreach (var estudiante in queryEstudiantes)
@@ -49,9 +78,9 @@ namespace LinQ
             Console.WriteLine("\nLISTADO de los objetos de la lista:\n");
             List<Alumno> listAlumnos = new List<Alumno>()
             {
-                new Alumno (17654, "Ana Lisa", 15, 35, 50),
-                new Alumno (74590, "Aquiles", 15, 35, 50),
-                new Alumno (86535, "Elver", 15, 35, 50)
+                new Alumno (17654, "Ana Lisa", 10, 35, 50),
+                new Alumno (74590, "Luis", 15, 35, 50),
+                new Alumno (86535, "Jorge", 8, 35, 50)
             };
 
             List<Alumno> queryAlumnos = (from alum in listAlumnos
@@ -83,7 +112,16 @@ namespace LinQ
             {
                 alum.verDatos();
             }
-            //CONSULTA DONDE LOS ESTUDIANTES MUESTRE los nombres de los estudiantes cuya nota de asistencia este entre 10 y 15
+            //CONSULTA nombres de los estudiantes cuya nota de asistencia este entre 10 y 15
+            Console.WriteLine("\n NOTA Asistencia entre 10 y 15");
+            List<Alumno> queryAlumnos4 = (from alum2 in listAlumnos
+                                        where (alum2.notaA >= 10 && alum2.notaA <= 15)
+                                        select alum2).ToList();
+            foreach (Alumno alumno in queryAlumnos4)
+            {
+                alumno.verDatos();
+            }
+            Console.Write("Reyes Ortiz Chacon Alejandro");
         }
     }
 }
