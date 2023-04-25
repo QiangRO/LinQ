@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace LinQ
 {
@@ -122,6 +123,53 @@ namespace LinQ
                 alumno.verDatos();
             }
             Console.Write("Reyes Ortiz Chacon Alejandro");
+            //CLASE 25/04/2023
+            Console.WriteLine("\n\nCLASE DE XML");
+            string peliXML =
+                @"<Cine>
+                    <Pelicula>
+                        <id>1</id>
+                        <titulo>KATE</titulo>
+                        <duracion>01h30min</duracion>
+                        <genero>Accion</genero>
+                    </Pelicula>
+                    <Pelicula>
+                        <id>2</id>
+                        <titulo>Pandillas en el Alto</titulo>
+                        <duracion>02h30min</duracion>
+                        <genero>Drama</genero>
+                    </Pelicula>
+                    <Pelicula>
+                        <id>3</id>
+                        <titulo>Bicicleta de los Huanca</titulo>
+                        <duracion>01h20min</duracion>
+                        <genero>Comedio</genero>
+                    </Pelicula>
+                    <Pelicula>
+                        <id>4</id>
+                        <titulo>Cementerio de elefantes</titulo>
+                        <duracion>01h00min</duracion>
+                        <genero>Suspenso</genero>
+                    </Pelicula>
+                </Cine>";
+            XDocument peliXMLdoc = new XDocument();
+            peliXMLdoc = XDocument.Parse(peliXML);
+            var qryPeli = from peli in peliXMLdoc.Descendants("Pelicula")
+                        select new
+                        {
+                            id = peli.Element("id").Value,
+                            titulo = peli.Element("titulo").Value,
+                            duracion = peli.Element("duracion").Value,
+                            genero = peli.Element("genero").Value
+                        };
+            foreach (var peli in qryPeli)
+            {
+                Console.WriteLine("Id: " + peli.id + " "+
+                    "Titulo: " + peli.titulo + " " +
+                    "Duracion: " + peli.duracion + " " +
+                    "Genero: " + peli.genero);
+            }
+            Console.ReadKey();
         }
     }
 }
